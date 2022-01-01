@@ -47,7 +47,7 @@ function Home(){
                         <img src={logo} alt="logo" className='w-28' />
                     </Link>
                     <Link to={`user-profile/${user?._id}`}>
-                        <img src={user?.image} alt="user image" className='w-28' ></img>
+                        <img src={user?.image} alt="user image" className='w-20 h-20'  ></img>
                     </Link>
                </div>
                {toggleSidebar && (
