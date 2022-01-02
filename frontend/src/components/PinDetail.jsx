@@ -13,6 +13,7 @@ const PinDetail = ({user}) => {
     const [pinDetail, setPinDetail] = useState(null);
     const [comment, setComment] = useState('');
     const [addingComment, setAddingComment] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { pinId } = useParams();
 
     const addComment = () => {
@@ -45,6 +46,7 @@ const PinDetail = ({user}) => {
         let query = pinDetailQuery(pinId);
 
         if(query){
+            setLoading(true);
             client.fetch(query)
               .then(data => {
                 setPinDetail(data[0]);
@@ -54,13 +56,16 @@ const PinDetail = ({user}) => {
                     client.fetch(query)
                       .then(res => setPins(res));
                   }
+                  setLoading(false);
               })
-            }
+        }else{
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
         fetchPinDetails();
-    }, [])
+    }, [pinId]);
 
     if(!pinDetail) return <Spinner message={"Loading pins..."}/>
 
@@ -94,7 +99,7 @@ const PinDetail = ({user}) => {
                     </h1>
                     <p className='mt-3'>{pinDetail.about}</p>
                 </div>
-                <Link to={`user-profile/${pinDetail.postedBy?._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg">
+                <Link to={`/user-profile/${pinDetail.postedBy?._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg">
                   <img src={pinDetail.postedBy?.image} alt="user image"
                   className="w-8 h-8 rounded-full object-cover"
                    />
@@ -119,7 +124,7 @@ const PinDetail = ({user}) => {
                     ))}
                 </div>
                 <div className="flex flex-wrap mt-6 gap-3">
-                <Link to={`user-profile/${pinDetail.postedBy?._id}`} >
+                <Link to={`/user-profile/${pinDetail.postedBy?._id}`} >
                   <img src={pinDetail.postedBy?.image} alt="user image"
                     className="w-10 h-10 rounded-full cursor-pointer"
                    />
@@ -136,12 +141,12 @@ const PinDetail = ({user}) => {
                 </div>
            </div>
         </div>
-        {pins?.length > 0  ? (
+        {(pins?.length > 0 || loading !== true)  ? (
             <>
             <h2 className='text-center font-bold text-2xl mt-8 mb-4'>
                 More like this
             </h2>
-            <MasonryLayout pins={pins} />
+              <MasonryLayout pins={pins} />
             </>
         ) : (
             <Spinner message='Loading more Pins' />

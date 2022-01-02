@@ -13,7 +13,7 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
     const [postHovered, setPostHovered] = useState(false);
     const user = fetchUser();
 
-    const alreadySaved = !!(save?.filter(item => item.postedBy._id === user.googleId))?.length;
+    const alreadySaved = !!(save?.filter(item => item.postedBy._id === user?.googleId))?.length;
 
     const savePin = (id) => {
         if(!alreadySaved){
@@ -22,10 +22,10 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
                 .setIfMissing({save: []})
                 .insert('after', 'save[-1]', [{
                     _key: uuidvd(),
-                    userId: user.googleId,
+                    userId: user?.googleId,
                     postedBy: {
                         _type: 'postedBy',
-                        _ref: user.googleId
+                        _ref: user?.googleId
                     }
                 }]).commit()
                 .then(() => window.location.reload() );
@@ -47,7 +47,7 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
             onMouseLeave={() => setPostHovered(false)}
             onClick={() => navigate(`/pin-detail/${_id}`)}
             >
-               <img src={urlFor(image).width(250).url()} alt="user-post" className="rounded-lg w-full" />
+               <img src={urlFor(image).width(350).url()} loading="lazy" alt="user-post" className="rounded-lg w-full" />
                 {postHovered && (
                     <div className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50"
                         style={{ height: '100%'}}
@@ -84,7 +84,7 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
                                     { destination.startsWith('https://') ?  destination.slice(8,14) : destination.slice(0, 12)}
                                 </a>
                             )}
-                            {postedBy?._id === user.googleId && (
+                            {postedBy?._id === user?.googleId && (
                                 <button className="bg-white opacity-70 hover:opacity-100 text-dark font-bold px-1 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -97,7 +97,7 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
                     </div>
                 )}
             </div>
-            <Link to={`user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
+            <Link to={`/user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
                   <img src={postedBy?.image} alt="user image"
                   className="w-8 h-8 rounded-full object-cover"
                    />

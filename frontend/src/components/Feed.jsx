@@ -34,6 +34,13 @@ const Feed = () => {
             <Spinner message="We are adding new " />
         )
     }
+
+    if(!pins?.length){
+        return (
+            <h2>No pins available</h2>
+        )
+    }
+
     return (
         <div className="">
             {pins.length > 0 && <MasonryLayout pins={pins} /> }
