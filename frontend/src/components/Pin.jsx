@@ -81,7 +81,7 @@ const Pin = ({ pin : {postedBy, image, _id, destination, save} }) => {
                                 target="_blank" rel="noreferrer" 
                                 >
                                     <BsArrowUpRightCircleFill />
-                                    { destination.length > 16 ?  destination.slice(8,14) : destination.slice(8)}
+                                    { destination.startsWith('https://') ?  destination.slice(8,14) : destination.slice(0, 12)}
                                 </a>
                             )}
                             {postedBy?._id === user.googleId && (

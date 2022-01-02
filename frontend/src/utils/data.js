@@ -60,14 +60,14 @@ export const categories = [
         destination,
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
         save[]{
           _key,
           postedBy->{
             _id,
-            userName,
+            username,
             image
           },
         },
@@ -87,13 +87,13 @@ export const categories = [
       destination,
       postedBy->{
         _id,
-        userName,
+        username,
         image
       },
      save[]{
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
       },
@@ -102,7 +102,7 @@ export const categories = [
         _key,
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
       }
@@ -121,14 +121,14 @@ export const categories = [
       destination,
       postedBy->{
         _id,
-        userName,
+        username,
         image
       },
       save[]{
         _key,
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
       },
@@ -147,14 +147,14 @@ export const categories = [
               destination,
               postedBy->{
                 _id,
-                userName,
+                username,
                 image
               },
               save[]{
                 _key,
                 postedBy->{
                   _id,
-                  userName,
+                  username,
                   image
                 },
               },
@@ -178,13 +178,13 @@ export const categories = [
       destination,
       postedBy->{
         _id,
-        userName,
+        username,
         image
       },
       save[]{
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
       },
@@ -203,13 +203,13 @@ export const categories = [
       destination,
       postedBy->{
         _id,
-        userName,
+        username,
         image
       },
       save[]{
         postedBy->{
           _id,
-          userName,
+          username,
           image
         },
       },
